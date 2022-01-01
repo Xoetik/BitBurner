@@ -25,7 +25,7 @@ export async function main(ns) {
 	for(var i = 0; i<hostNames.length; i++ ){
 		while(true){	
 			var fram = await ns.getServerMaxRam("home") - ns.getServerUsedRam("home");
-			if (fram > 3 ){
+			if (fram > 7 ){
 				if(hostNames[i] == "home" || (ns.args.length > 1 && ns.args[1]!= hostNames[i])){
 					break;
 				}
