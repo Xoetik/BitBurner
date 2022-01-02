@@ -15,6 +15,9 @@ export async function main(ns) {
 		await ns.sleep(1000);
 		await ns.exec("getSer.js", "home",1);
 	}
+	else{
+		ns.alert("Insufficient Funds for new Servers!");
+	}
 	
 	
 }
