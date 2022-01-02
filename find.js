@@ -10,22 +10,16 @@ export async function main(ns) {
 	var hostNames = ns.scan(serverName);
 
 	for(var i = 0; i<hostNames.length; i++ ){
-		while(true){	
-			var fram = await ns.getServerMaxRam("home") - ns.getServerUsedRam("home");
-			if (fram > 3 ){
-				if(ns.isRunning( "infil.js",hostNames[i]||ns.isRunning("find.js", hostNames[i]) )){	
-					break;
-				}
-				else{
-					await ns.exec("find.js", "home",1,hostNames[i], serverName);
-					break;
-				}
-		
-			}
-			else{
-				await ns.sleep(1000)
+		await ns.sleep(100);
+		var adder=ns.scan(hostNames[i]);
+		for(var j=0;j<adder.length;j++){
+			if(!hostNames.includes(adder[j])){
+				hostNames.push(adder[j]);
 			}
 		}
+		ns.alert("Post: "+hostNames);
+
+		// ns.alert("Host: "+hostNames[i]+ "Array: "+hostNames);
 	}
 
 	for(var i = 0; i<hostNames.length; i++ ){
@@ -36,7 +30,7 @@ export async function main(ns) {
 			break;
 			}
 			else{
-				await ns.sleep(1000)
+				await ns.sleep(100)
 			}
 		}
 	}	
