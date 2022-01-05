@@ -5,7 +5,6 @@ export async function main(ns) {
 		curentRam = ns.getServerMaxRam("pserv-0")
 	}
 	
-	
 	var x = ns.getServerMoneyAvailable("home")*0.75/ns.getPurchasedServerCost(1)/25;
     var y =Math.floor(Math.log(x)/Math.log(2));
     var ram = Math.pow(2,y);
@@ -18,6 +17,4 @@ export async function main(ns) {
 	else{
 		ns.alert("Insufficient Funds for new Servers!");
 	}
-	
-	
 }
