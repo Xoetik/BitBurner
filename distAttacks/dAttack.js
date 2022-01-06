@@ -10,7 +10,7 @@ export async function main(ns) {
     for(var i=0;i<prio.length;i++){
         await ns.sleep(100);
         var targetMaxThreads=(100-(ns.getServerMinSecurityLevel(prio[i])+5))/0.004;
-        // ns.alert(targetMaxThreads);
+        
         if(maxThreadsPerServ>targetMaxThreads){
             //TODO: Servers with vast ram
         }else{
@@ -36,21 +36,7 @@ export async function main(ns) {
         var perc =(((100 - ns.getServerSecurityLevel(prio[i])) / 100)*((ns.getPlayer().hacking - ns.getServerRequiredHackingLevel(prio[i]) - 1) / ns.getPlayer().hacking)*(ns.getPlayer().hacking_money_mult)) / 240;
         var thre=.75/perc;
         await ns.kill("/distAttacks/collectMoney.js","home",prio[i]);
-        await ns.exec("distAttacks/collectMoney.js", "home", thre, prio[i]);
+        await ns.exec("/distAttacks/collectMoney.js", "home", thre, prio[i]);
     }
-
-
-	// for(var i = 0; i<hostNames.length; i++ ){
-	// 	while(true){	
-	// 		var fram = await ns.getServerMaxRam("home") - ns.getServerUsedRam("home");
-	// 		if (fram > 4 ){
-	// 		    await ns.exec("crack.js", "home",1,hostNames[i]);
-	// 		    break;
-	// 		}
-	// 		else{
-	// 			await ns.sleep(100)
-	// 		}
-	// 	}
-	// }	
 	 
 }
