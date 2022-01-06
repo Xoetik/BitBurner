@@ -14,11 +14,11 @@ export async function main(ns) {
     var ram = Math.pow(2,y);
 
 	if(curentRam < ram){
-		await ns.exec("delServ.js", "home");
+		await ns.exec("/buyServ/delServ.js", "home");
 		while(true){
-			await ns.sleep(100);
-			if(ns.scirptRunning("delServ.js", "home")){
-				await ns.exec("getServ.js", "home", percent);
+			await ns.sleep(1000);
+			if(!ns.scriptRunning("delServ.js", "home")){
+				await ns.exec("/buyServ/getServ.js", "home", 1, percent);
 				break;
 			}
 		}
@@ -26,4 +26,5 @@ export async function main(ns) {
 	else{
 		ns.alert("Insufficient Funds for new Servers!");
 	}
+	
 }
