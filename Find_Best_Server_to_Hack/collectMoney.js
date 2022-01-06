@@ -10,7 +10,12 @@ export async function main(ns) {
             await ns.sleep(10000);
         }
         else{
-            await ns.hack(target); 
+            await ns.hack(target);
+            if(ns.getHackingLevel() > 1000){
+                if(ns.getServerSecurityLevel(target) == 100 || ns.getServerMoneyAvailable(target) == 0){
+                    await ns.exec("search.js", "home", 1);
+                }
+            }
         }
     }
 }
