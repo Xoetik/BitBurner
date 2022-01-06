@@ -2,22 +2,28 @@
 export async function main(ns) {
 	var curentRam = 2;
 	if(ns.serverExists("pserv-0")){
-		curentRam = ns.getServerMaxRam("pserv-0")
+		curentRam = ns.getServerMaxRam("pserv-0");
 	}
+	// ns.alert("Current Ram: "+curentRam);
 	
 	
 	var x = ns.getServerMoneyAvailable("home")*0.75/ns.getPurchasedServerCost(1)/25;
     var y =Math.floor(Math.log(x)/Math.log(2));
     var ram = Math.pow(2,y);
+	// ns.alert("Upgrade Ram: "+ram);
 
 	if(curentRam < ram){
-		await ns.exec("delSer.js", "home",1);
-		await ns.sleep(1000);
-		await ns.exec("getSer.js", "home",1);
+		await ns.exec("delServ.js", "home");
+		var pServNames = ns.getPurchasedServers();
+		while(true){
+			await ns.sleep(100);
+			if(pServNames.length==0){
+				await ns.exec("getServ.js", "home");
+				break;
+			}
+		}
 	}
 	else{
 		ns.alert("Insufficient Funds for new Servers!");
 	}
-	
-	
 }
