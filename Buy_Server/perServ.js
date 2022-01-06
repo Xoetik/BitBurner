@@ -14,9 +14,9 @@ export async function main(ns) {
 
 	if(curentRam < ram){
 		await ns.exec("delServ.js", "home");
-		var pServNames = ns.getPurchasedServers();
 		while(true){
 			await ns.sleep(100);
+			var pServNames = ns.getPurchasedServers();
 			if(pServNames.length==0){
 				await ns.exec("getServ.js", "home");
 				break;
