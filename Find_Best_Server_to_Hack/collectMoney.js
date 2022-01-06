@@ -13,7 +13,7 @@ export async function main(ns) {
             await ns.hack(target);
             if(ns.getHackingLevel() > 1000){
                 if(ns.getServerSecurityLevel(target) == 100 || ns.getServerMoneyAvailable(target) == 0){
-                    await ns.exec("search.js", "home", 1);
+                    await ns.exec("../Find_Best_Server_to_Hack/search.js", "home", 1);
                 }
             }
         }
