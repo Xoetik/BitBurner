@@ -17,14 +17,14 @@ export async function main(ns) {
 		await ns.exec("/buyServ/delServ.js", "home");
 		while(true){
 			await ns.sleep(1000);
-			if(!ns.scriptRunning("delServ.js", "home")){
+			if(!ns.scriptRunning("/buyServ/delServ.js", "home")){
 				await ns.exec("/buyServ/getServ.js", "home", 1, percent);
 				break;
 			}
 		}
 	}
 	else{
-		ns.alert("Insufficient Funds for new Servers!");
+		ns.tprint("Insufficient Funds for new Servers!");
 	}
 	
 }
