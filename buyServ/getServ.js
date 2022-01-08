@@ -16,9 +16,9 @@ export async function main(ns) {
 		if (ns.getServerMoneyAvailable("home") > ns.getPurchasedServerCost(ram)) {
 			var hostname = ns.purchaseServer("pserv-" + i, ram);
 			++i;
-			await ns.sleep(1000);
+			await ns.sleep(10);
 		}
 	}
 	await ns.alert("server bought");
-	await ns.exec("/disAttacks/dAttack.js", "home");
+	await ns.exec("/distAttacks/dAttack.js", "home");
 }
