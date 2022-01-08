@@ -2,7 +2,7 @@
 export async function main(ns) {
 	var target = ns.args[0];
 
-	await ns.scp("infil.js", "home",target);
+	await ns.scp("/findBestHack/attack.js", "home",target);
 	var ports = 0;
 	if(ns.fileExists("BruteSSH.exe", "home")){
 		await ns.brutessh(target);
@@ -36,7 +36,7 @@ export async function main(ns) {
 			threads-=14.2;
 		}
 			if(threads > 0){
-				await ns.exec("infil.js", target, threads);
+				await ns.exec("/findBestHack/attack.js", target, threads);
 			}
 	}	
 	
