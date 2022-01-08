@@ -4,9 +4,14 @@ export async function main(ns) {
     var moneyThresh = ns.getServerMaxMoney(target) * 0.75;
 
     while(true){
+        var perc =(((100 - ns.getServerSecurityLevel(target)) / 100)*((ns.getPlayer().hacking - ns.getServerRequiredHackingLevel(target) - 1) / ns.getPlayer().hacking)*(ns.getPlayer().hacking_money_mult)) / 240;
+        var thre=.75/perc;
         if(ns.getServerMoneyAvailable(target) > moneyThresh){
-            await ns.hack(target); 
-            
+            if(thre < ns.getRunningScript("/distAttacks/collectMoney.js","home",target).threads){
+                await ns.hack(target,{threads:thre}); 
+            }else{
+                await ns.hack(target); 
+            }      
         }else{
             await ns.sleep(1000);
         }
