@@ -23,7 +23,7 @@ export async function main(ns) {
     var targetList= [];
     for(var i =0; i< hostNames.length; i++){
         var name = hostNames[i];
-        var hackTime = ((2.5 * ns.getServerRequiredHackingLevel("joesguns") * (50 +(ns.getServerMinSecurityLevel("joesguns")/2))+ 500) * 5 
+        var hackTime = ((2.5 * ns.getServerRequiredHackingLevel(hostNames[i]) * (50 +(ns.getServerMinSecurityLevel(hostNames[i])/2))+ 500) * 5 
                             / (ns.getHackingLevel()+50))/ ns.getPlayer().hacking_speed_mult;
         var maxMoney = ns.getServerMaxMoney(hostNames[i]);
 
