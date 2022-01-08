@@ -19,6 +19,6 @@ export async function main(ns) {
 			await ns.sleep(1000);
 		}
 	}
-	await ns.alert("server bought");
+	await ns.tprint("Server bought");
 	await ns.exec("/disAttacks/dAttack.js", "home");
 }
