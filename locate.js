@@ -1,10 +1,12 @@
-/** @param {NS} ns **/
+/** @param {import(".").NS} ns */
+
 export async function main(ns) {
 	var p=await recLocate(ns,ns.args[0],"home","");
 	ns.tprint("Final: "+p);
 }
 
-/** @param {NS} ns **/
+/** @param {import(".").NS} ns */
+
 async function recLocate(ns,target,here,prev){
 	await ns.sleep(10);
 	if(here==target){

@@ -1,4 +1,5 @@
-/** @param {NS} ns **/
+/** @param {import("../.").NS} ns */
+
 export async function main(ns) {
     var percent = 0.75;
 	if(ns.args.length != 0){
@@ -16,9 +17,9 @@ export async function main(ns) {
 		if (ns.getServerMoneyAvailable("home") > ns.getPurchasedServerCost(ram)) {
 			var hostname = ns.purchaseServer("pserv-" + i, ram);
 			++i;
-			await ns.sleep(1000);
+			await ns.sleep(10);
 		}
 	}
 	await ns.tprint("Server bought");
-	await ns.exec("/disAttacks/dAttack.js", "home");
+	await ns.exec("/distAttacks/dAttack.js", "home");
 }
