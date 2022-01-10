@@ -1,4 +1,5 @@
-/** @param {NS} ns **/
+/** @param {import(".").NS} ns */
+
 export async function main(ns) {
 	var p=await recLocate(ns,ns.args[0],"home","");
 	ns.tprint("Final: "+p);

@@ -1,4 +1,5 @@
-/** @param {NS} ns **/
+/** @param {import("../.").NS} ns */
+
 export async function main(ns) {
 	var curentRam = 2;
 	var percent = 0.85;

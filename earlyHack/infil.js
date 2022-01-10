@@ -1,4 +1,5 @@
-/** @param {NS} ns **/
+/** @param {import("../.").NS} ns */
+
 export async function main(ns) {
     var target = "joesguns";
     var moneyThresh = ns.getServerMaxMoney(target) * 0.75;

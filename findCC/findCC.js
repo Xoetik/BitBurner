@@ -1,4 +1,5 @@
-/** @param {NS} ns **/
+/** @param {import("../.").NS} ns */
+
 export async function main(ns) {
     var hostNames = ns.scan("home");
 	for(var i = 0; i<hostNames.length; i++ ){

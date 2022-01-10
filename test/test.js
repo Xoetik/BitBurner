@@ -1,9 +1,12 @@
-/** @param {NS} ns **/
+/** @param {import("../.").NS} ns */
+
 export async function main(ns) {
     var data=[["1","2","3"],["4","5","6"],["7","8","9"]];
     // ns.alert(data[0][0]);
     ns.alert(spiralMatrix(data));
 }
+/** @param {import("../.").NS} ns */
+
 function spiralMatrix(data){
     var soulution =[];
     var ptrs = [0,0,0,0];
