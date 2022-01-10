@@ -5,9 +5,9 @@ export async function main(ns) {
 	while (0<pServNames.length){
 		ns.killall(pServNames[i]);
 		ns.deleteServer(pServNames[i]);
-		await ns.sleep(10);
+		await ns.sleep(100);
 		i++;
 	}
 
-	await ns.alert("servers deleted");
+	await ns.tprint("Servers deleted");
 }

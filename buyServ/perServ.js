@@ -25,7 +25,7 @@ export async function main(ns) {
 		}
 	}
 	else{
-		ns.alert("Insufficient Funds for new Servers!");
+		ns.tprint("Insufficient Funds for new Servers!");
 	}
 	
 }
