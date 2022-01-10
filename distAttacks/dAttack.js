@@ -3,7 +3,7 @@ export async function main(ns) {
     let hosts=await getHosts(ns);
     let targets=await filter(hosts,ns.getPurchasedServers()); 
     targets=await sortByMoneyPerSecond(ns,targets);
-    var scriptRam=ns.getScriptRam("/distAttacks/wag.js","home");
+    let scriptRam=ns.getScriptRam("/distAttacks/wag.js","home");
     hosts=await removeBadHosts(ns,hosts,scriptRam);
     await wagAlgo(ns,targets,hosts,scriptRam);
     await ns.tprint("dAttack.js complete!");
@@ -26,7 +26,7 @@ async function getHosts(ns){
 }
 
 async function filter(orig,removal){
-    var fin=[];
+    let fin=[];
     for (let i = 0; i < orig.length; i++) {
         if (!removal.includes(orig[i])) {
             fin.push(orig[i]);
@@ -36,13 +36,13 @@ async function filter(orig,removal){
 }
 
 async function sortByMoneyPerSecond(ns,targets){
-    var targetList=[];
+    let targetList=[];
 
-    for(var i =0; i< targets.length; i++){
-        var sName = targets[i];
-        var hackTime = ((2.5 * ns.getServerRequiredHackingLevel(sName) * (50 +(ns.getServerMinSecurityLevel(sName)/2))+ 500) * 5 
+    for(let i =0; i< targets.length; i++){
+        let sName = targets[i];
+        let hackTime = ((2.5 * ns.getServerRequiredHackingLevel(sName) * (50 +(ns.getServerMinSecurityLevel(sName)/2))+ 500) * 5 
                             / (ns.getHackingLevel()+50))/ ns.getPlayer().hacking_speed_mult;
-        var maxMoney = ns.getServerMaxMoney(sName);
+        let maxMoney = ns.getServerMaxMoney(sName);
         if(hackTime>300){
             maxMoney=maxMoney/1000;
         }else if(hackTime>60){
@@ -64,15 +64,15 @@ async function sortByMoneyPerSecond(ns,targets){
         }
         
     }
-    var fin =[];
-    for(var i = 0; i<targetList.length; i++){
+    let fin =[];
+    for(let i = 0; i<targetList.length; i++){
        fin.push(targetList[i].name);
     }
     return fin;
 }
 
 async function removeBadHosts(ns,hosts,ram){
-    var fin=[];
+    let fin=[];
     for (let i = 0; i < hosts.length; i++) {
         if(!ns.hasRootAccess(hosts[i])){
             await open(ns,hosts[i]);
@@ -84,7 +84,7 @@ async function removeBadHosts(ns,hosts,ram){
     return fin;
 }
 async function open(ns,target){
-    var ports = 0;
+    let ports = 0;
 	if(ns.fileExists("BruteSSH.exe", "home")){
 		await ns.brutessh(target);
 		ports++;
@@ -143,14 +143,14 @@ async function wagAlgo(ns,targets,hosts,ram){
         }
     }
     ns.scriptKill("/distAttacks/collectMoney.js","home");
-    for(var k=0;k<servsAttacking+1;k++){
-        var [totalRam, ramUsed] = ns.getServerRam("home");
-        var availRam=totalRam-ramUsed;
+    for(let k=0;k<servsAttacking+1;k++){
+        let [totalRam, ramUsed] = ns.getServerRam("home");
+        let availRam=totalRam-ramUsed;
         let balanceFactor = 240;
         let difficultyMult = (100 - (ns.getServerMinSecurityLevel(targetServ[k].name)+5)) / 100;
         let skillMult = (ns.getPlayer().hacking - (ns.getServerRequiredHackingLevel(targetServ[k].name)- 1)) / ns.getPlayer().hacking;
         let perc = (difficultyMult * skillMult * ns.getPlayer().hacking_money_mult) / balanceFactor;
-        var thre=.75/perc;
+        let thre=.75/perc;
         if(availRam>=thre){
             await ns.exec("/distAttacks/collectMoney.js", "home", thre, targetServ[k].name);
         }else{
