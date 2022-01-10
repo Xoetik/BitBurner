@@ -6,7 +6,6 @@ export async function main(ns) {
 		ns.killall(servDeleting);
 		ns.deleteServer(servDeleting);
 		await ns.sleep(100);
-	}	
-
-	await ns.alert("servers deleted");
+	}
+	await ns.tprint("Servers deleted");
 }
