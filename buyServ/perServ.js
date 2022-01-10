@@ -13,7 +13,6 @@ export async function main(ns) {
 	var x = ns.getServerMoneyAvailable("home")*percent/ns.getPurchasedServerCost(1)/25;
     var y =Math.floor(Math.log(x)/Math.log(2));
     var ram = Math.pow(2,y);
-
 	if(curentRam < ram){
 		await ns.exec("/buyServ/delServ.js", "home");
 		while(true){

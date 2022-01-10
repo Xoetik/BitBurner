@@ -20,5 +20,5 @@ export async function main(ns) {
 		}
 	}
 	await ns.tprint("Server bought");
-	await ns.exec("/disAttacks/dAttack.js", "home");
+	await ns.exec("/distAttacks/dAttack.js", "home");
 }
