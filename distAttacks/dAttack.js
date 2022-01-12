@@ -153,17 +153,16 @@ async function wagAlgo(ns,targets,hosts,ram){
     }
     ns.scriptKill("/distAttacks/collectMoney.js","home");
     for(let k=0;k<servsAttacking+1;k++){
-        let [totalRam, ramUsed] = ns.getServerRam("home");
-        let availRam=totalRam-ramUsed;
+        let availRam=ns.getServerMaxRam("home")-ns.getServerUsedRam("home");
         let balanceFactor = 240;
         let difficultyMult = (100 - (ns.getServerMinSecurityLevel(targetServ[k].name)+5)) / 100;
         let skillMult = (ns.getPlayer().hacking - (ns.getServerRequiredHackingLevel(targetServ[k].name)- 1)) / ns.getPlayer().hacking;
         let perc = (difficultyMult * skillMult * ns.getPlayer().hacking_money_mult) / balanceFactor;
         let thre=.75/perc;
-        if(availRam>=thre){
+        if(availRam/ns.getScriptRam("/distAttacks/collectMoney.js")>=thre){
             await ns.exec("/distAttacks/collectMoney.js", "home", thre, targetServ[k].name);
         }else{
-            await ns.exec("/distAttacks/collectMoney.js", "home", availRam, targetServ[k].name);
+            await ns.exec("/distAttacks/collectMoney.js", "home", availRam/ns.getScriptRam("/distAttacks/collectMoney.js"), targetServ[k].name);
             break;
         }
     }
