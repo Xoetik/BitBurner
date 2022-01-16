@@ -6,6 +6,7 @@ export async function main(ns) {
     targets=await sortByMoneyPerSecond(ns,targets);
     let scriptRam=ns.getScriptRam("/distAttacks/wag.js","home");
     hosts=await removeBadHosts(ns,hosts,scriptRam);
+    hosts.push("home");
     await wagAlgo(ns,targets,hosts,scriptRam);
     await ns.tprint("dAttack.js complete!");
 }
@@ -66,7 +67,7 @@ async function sortByMoneyPerSecond(ns,targets){
             
             }
         }
-        
+  
     }
     let fin =[];
     for(let i = 0; i<targetList.length; i++){
@@ -132,38 +133,62 @@ async function wagAlgo(ns,targets,hosts,ram){
 
         hostServ.push({name:hosts[i],threads:tMax});
         await ns.scp("/distAttacks/wag.js", hosts[i]);
-        await ns.killall(hosts[i]);
+        await ns.scp("/distAttacks/collectMoney.js", hosts[i]);
+        await ns.scriptKill("/distAttacks/wag.js", hosts[i]);
+        await ns.scriptKill("/distAttacks/collectMoney.js", hosts[i]);
         await ns.sleep(10);
     }
-    await ns.sleep(1000);
+    await ns.sleep(100);
+    let collectMoney=0;
+    let t =0;
     while(hostServ.length>servUsed&&targetServ.length>servsAttacking){
-        if(targetServ[servsAttacking].threads>hostServ[servUsed].threads){
-            targetServ[servsAttacking]={name:targetServ[servsAttacking].name,threads:targetServ[servsAttacking].threads-hostServ[servUsed].threads};
-            let t =hostServ[servUsed].threads;
-            await ns.scp("/distAttacks/wag.js", hostServ[servUsed].name);
-            await ns.exec("/distAttacks/wag.js", hostServ[servUsed].name, t, targetServ[servsAttacking].name); 
-            servUsed++;
+        if (collectMoney>0){
+            if(collectMoney>hostServ[servUsed].threads){
+                t=hostServ[servUsed].threads;
+            }else{
+                t=collectMoney;
+            }
+            collectMoney-=t;
+            await ns.scp("/distAttacks/collectMoney.js", hostServ[servUsed].name);
+            await ns.exec("/distAttacks/collectMoney.js", hostServ[servUsed].name, t, targetServ[servsAttacking].name);
+            if(collectMoney>0){
+                servUsed++;
+            }else{
+                servsAttacking++;
+            }
         }else{
-            hostServ[servUsed]={name:hostServ[servUsed].name,threads:hostServ[servUsed].threads-targetServ[servsAttacking].threads};
-            let t=targetServ[servsAttacking].threads;
-            await ns.scp("/distAttacks/wag.js", hostServ[servUsed].name);
-            await ns.exec("/distAttacks/wag.js", hostServ[servUsed].name, t, targetServ[servsAttacking].name); 
-            servsAttacking++;
+            if(targetServ[servsAttacking].threads>hostServ[servUsed].threads){
+                targetServ[servsAttacking]={name:targetServ[servsAttacking].name,threads:targetServ[servsAttacking].threads-hostServ[servUsed].threads};
+                let t =hostServ[servUsed].threads;
+                await ns.scp("/distAttacks/wag.js", hostServ[servUsed].name);
+                await ns.exec("/distAttacks/wag.js", hostServ[servUsed].name, t, targetServ[servsAttacking].name); 
+                servUsed++;
+            }else{
+                hostServ[servUsed]={name:hostServ[servUsed].name,threads:hostServ[servUsed].threads-targetServ[servsAttacking].threads};
+                let t=targetServ[servsAttacking].threads;
+                await ns.scp("/distAttacks/wag.js", hostServ[servUsed].name);
+                await ns.exec("/distAttacks/wag.js", hostServ[servUsed].name, t, targetServ[servsAttacking].name); 
+                let balanceFactor = 240;
+                let difficultyMult = (100 - (ns.getServerMinSecurityLevel(targetServ[servsAttacking].name)+5)) / 100;
+                let skillMult = (ns.getPlayer().hacking - (ns.getServerRequiredHackingLevel(targetServ[servsAttacking].name)- 1)) / ns.getPlayer().hacking;
+                let perc = (difficultyMult * skillMult * ns.getPlayer().hacking_money_mult) / balanceFactor;
+                collectMoney=.75/perc;
+            }
         }
     }
-    ns.scriptKill("/distAttacks/collectMoney.js","home");
-    for(let k=0;k<servsAttacking+1;k++){
-        let availRam=ns.getServerMaxRam("home")-ns.getServerUsedRam("home");
-        let balanceFactor = 240;
-        let difficultyMult = (100 - (ns.getServerMinSecurityLevel(targetServ[k].name)+5)) / 100;
-        let skillMult = (ns.getPlayer().hacking - (ns.getServerRequiredHackingLevel(targetServ[k].name)- 1)) / ns.getPlayer().hacking;
-        let perc = (difficultyMult * skillMult * ns.getPlayer().hacking_money_mult) / balanceFactor;
-        let thre=.75/perc;
-        if(availRam/ns.getScriptRam("/distAttacks/collectMoney.js")>=thre){
-            await ns.exec("/distAttacks/collectMoney.js", "home", thre, targetServ[k].name);
-        }else{
-            await ns.exec("/distAttacks/collectMoney.js", "home", availRam/ns.getScriptRam("/distAttacks/collectMoney.js"), targetServ[k].name);
-            break;
-        }
-    }
+    // ns.scriptKill("/distAttacks/collectMoney.js","home");
+    // for(let k=0;k<servsAttacking+1;k++){
+    //     let availRam=ns.getServerMaxRam("home")-ns.getServerUsedRam("home");
+    //     let balanceFactor = 240;
+    //     let difficultyMult = (100 - (ns.getServerMinSecurityLevel(targetServ[k].name)+5)) / 100;
+    //     let skillMult = (ns.getPlayer().hacking - (ns.getServerRequiredHackingLevel(targetServ[k].name)- 1)) / ns.getPlayer().hacking;
+    //     let perc = (difficultyMult * skillMult * ns.getPlayer().hacking_money_mult) / balanceFactor;
+    //     let thre=.75/perc;
+    //     if(availRam/ns.getScriptRam("/distAttacks/collectMoney.js")>=thre){
+    //         await ns.exec("/distAttacks/collectMoney.js", "home", thre, targetServ[k].name);
+    //     }else{
+    //         await ns.exec("/distAttacks/collectMoney.js", "home", availRam/ns.getScriptRam("/distAttacks/collectMoney.js"), targetServ[k].name);
+    //         break;
+    //     }
+    // }
 }
