@@ -1,5 +1,7 @@
 /** @param {import(".").NS} ns */
 export async function main(ns) {
+	await ns.tprint("Starting Crime!");
+	await ns.sleep(1000);
 	var crime = "";
     if (ns.args.length == 0) {
 		crime = "mug";

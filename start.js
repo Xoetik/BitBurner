@@ -4,6 +4,7 @@ export async function main(ns) {
         await ns.universityCourse("Rothman University", "Study Computer Science");
         await ns.sleep(100000);
     }
+    await ns.stopAction();
 
     await ns.tprint("Checking for new .exe...");
     await ns.purchaseTor() 
@@ -12,11 +13,12 @@ export async function main(ns) {
     await ns.purchaseProgram("relaySMTP.exe");
     await ns.purchaseProgram("HTTPWorm.exe");
     await ns.purchaseProgram("SQLInject.exe");
-
     await ns.exec("backdoors.js", "home", 1);
     await ns.sleep(10000);
     await ns.exec("/buyServ/perServ.js", "home", 1);
     await ns.sleep(10000);
+    await ns.tprint("Checking for RAM upgrade...");
+    await ns.upgradeHomeRam();
     await ns.exec("/distAttacks/dAttack.js", "home", 1);
     await ns.sleep(10000);
     var crime = "mug";
