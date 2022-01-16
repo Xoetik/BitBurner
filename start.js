@@ -15,6 +15,8 @@ export async function main(ns) {
 
     await ns.exec("backdoors.js", "home", 1);
     await ns.sleep(10000);
+    await ns.exec("/buyServ/perServ.js", "home", 1);
+    await ns.sleep(10000);
     await ns.exec("/distAttacks/dAttack.js", "home", 1);
     await ns.sleep(10000);
     var crime = "mug";
