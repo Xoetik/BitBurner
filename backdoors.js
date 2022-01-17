@@ -24,6 +24,7 @@ export async function main(ns) {
 		await ns.sleep(1000);
     }
 	await ns.tprint("Backdooring Complete!");
+	await ns.sleep(100000);
 	await ns.exec("factJoin.js", "home", 1);
 }
 
