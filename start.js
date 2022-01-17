@@ -20,7 +20,7 @@ export async function main(ns) {
     await ns.purchaseProgram("SQLInject.exe");
     await ns.exec("backdoors.js", "home", 1);
     await ns.sleep(10000);
-    await ns.exec("/buyServ/perServ.js", "home", 1);
+    await ns.exec("/buyServ/bServ.js", "home", 1);
     await ns.sleep(10000);
     await ns.tprint("Checking for RAM upgrade...");
     await ns.upgradeHomeRam();

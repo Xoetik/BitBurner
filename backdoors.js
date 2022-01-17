@@ -30,7 +30,7 @@ export async function main(ns) {
 
 /** @param {import("../.").NS} ns */
 
-async function recLocate(ns,target,here,prev){// need this to return an array
+async function recLocate(ns,target,here,prev){
 	await ns.sleep(10);
 	if(here==target){
 		return here;

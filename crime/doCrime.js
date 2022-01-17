@@ -10,7 +10,7 @@ export async function main(ns) {
 		crime = ns.args[0];
 	}
     
-    await ns.tprint("mugging some people started!");
+    await ns.tprint(crime + " started!");
 	while(ns.getPlayer().money < 100000000){
 		if(!ns.isBusy()){
 			await ns.commitCrime(crime);

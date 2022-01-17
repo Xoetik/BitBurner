@@ -7,7 +7,7 @@ export async function main(ns) {
 	}
     while(true){
         var pServers=ns.getPurchasedServers();
-        var x = ns.getServerMoneyAvailable("home")*percent/ns.getPurchasedServerCost(1);
+        var x = ns.getServerMoneyAvailable("home")*percent/ns.getPurchasedServerCost(2);
         var y =Math.floor(Math.log(x)/Math.log(2));
         var ram = Math.pow(2,y);
         for (let i = 0; i < pServers.length-1; i++){
@@ -27,24 +27,24 @@ export async function main(ns) {
         }
         if(pServers.length<25){
             ns.purchaseServer("pserv", ram);
-            await ns.tprint("New server bought");
+            await ns.tprint("New Server Bought! RAM: " + ram);
         }else{
             for (let i = 0; i < pServers.length; i++){
                 if (ns.getServerMaxRam(pServers[i]) < ram){
                     ns.killall(pServers[i]);
                     ns.deleteServer(pServers[i]);
                     ns.purchaseServer("pserv", ram);
-                    await ns.tprint("Server updated");
+                    await ns.tprint("Server Updated! RAM: " + ram);
                     break;
                 }
                 if(i==24){
                     repeatFlag=false;
-                    ns.tprint("Servers are maxed out.");
+                    ns.tprint("Servers are Maxed Out!");
                 }
             }
         }
         if(repeatFlag==false){
-            await ns.exec("/distAttacks/dAttack.js", "home");
+            //await ns.exec("/distAttacks/dAttack.js", "home");
             break;
         }
     }
