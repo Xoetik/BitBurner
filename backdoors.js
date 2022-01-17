@@ -1,6 +1,8 @@
 /** @param {import(".").NS} ns */
 export async function main(ns) {
 
+	await ns.exec("crackAll.js", "home", 1);
+
     let hostNames = ["CSEC", "avmnite-02h", "I.I.I.I", "run4theh111z", "fulcrumassets", ];//"w0r1d_d43m0n"
     let jumpList = [];
 
@@ -21,7 +23,8 @@ export async function main(ns) {
         }
 		await ns.sleep(1000);
     }
-	await ns.tprint("backdooring complete!");
+	await ns.tprint("Backdooring Complete!");
+	await ns.exec("factJoin.js", "home", 1);
 }
 
 /** @param {import("../.").NS} ns */

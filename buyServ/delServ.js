@@ -8,5 +8,5 @@ export async function main(ns) {
 		ns.deleteServer(servDeleting);
 		await ns.sleep(100);
 	}
-	await ns.tprint("Servers deleted");
+	await ns.tprint("Old Servers Deleted!");
 }
