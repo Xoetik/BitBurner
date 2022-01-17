@@ -12,7 +12,7 @@ export async function main(ns) {
     }
     
     await ns.tprint("Checking for new .exe...");
-    await ns.purchaseTor() 
+    await ns.purchaseTor(); 
     await ns.purchaseProgram("BruteSSH.exe");
     await ns.purchaseProgram("FTPCrack.exe");
     await ns.purchaseProgram("relaySMTP.exe");
