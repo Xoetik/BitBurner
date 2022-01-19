@@ -126,16 +126,21 @@ async function wagAlgo(ns,targets,hosts,ram){
     var hostServ=[];
     for(let i=0;i<targets.length;i++){
         let tMax=(100-(ns.getServerMinSecurityLevel(targets[servsAttacking])+5))/0.004;
+        tMax=Math.floor(tMax);
         targetServ.push({name:targets[i],threads:tMax});
     }
     for(let i=0;i<hosts.length;i++){
-        let tMax =ns.getServerMaxRam(hosts[i])/ram;
-
-        hostServ.push({name:hosts[i],threads:tMax});
         await ns.scp("/distAttacks/wag.js", hosts[i]);
         await ns.scp("/distAttacks/collectMoney.js", hosts[i]);
         await ns.scriptKill("/distAttacks/wag.js", hosts[i]);
         await ns.scriptKill("/distAttacks/collectMoney.js", hosts[i]);
+        let tMax =(ns.getServerMaxRam(hosts[i])-ns.getServerUsedRam(hosts[i]))/ram;
+        tMax=Math.floor(tMax);
+        if(hosts[i]=="home"){
+            tMax-=ns.getScriptRam("/distAttacks/dAttack.js","home");
+        }
+        hostServ.push({name:hosts[i],threads:tMax});
+        
         await ns.sleep(10);
     }
     await ns.sleep(100);
@@ -143,6 +148,7 @@ async function wagAlgo(ns,targets,hosts,ram){
     let t =0;
     while(hostServ.length>servUsed&&targetServ.length>servsAttacking){
         if (collectMoney>0){
+            await ns.tprint("CM Host: "+hostServ[servUsed].name+" Target: "+targetServ[servsAttacking].name);
             if(collectMoney>hostServ[servUsed].threads){
                 t=hostServ[servUsed].threads;
             }else{
@@ -157,6 +163,7 @@ async function wagAlgo(ns,targets,hosts,ram){
                 servsAttacking++;
             }
         }else{
+            await ns.tprint("WAG Host: "+hostServ[servUsed].name+" Target: "+targetServ[servsAttacking].name);
             if(targetServ[servsAttacking].threads>hostServ[servUsed].threads){
                 targetServ[servsAttacking]={name:targetServ[servsAttacking].name,threads:targetServ[servsAttacking].threads-hostServ[servUsed].threads};
                 let t =hostServ[servUsed].threads;
