@@ -136,7 +136,11 @@ async function wagAlgo(ns,targets,hosts,ram){
         await ns.scriptKill("/distAttacks/collectMoney.js", hosts[i]);
         let tMax =(ns.getServerMaxRam(hosts[i])-ns.getServerUsedRam(hosts[i]))/ram;
         tMax=Math.floor(tMax);
+        if(hosts[i]=="home"){
+            tMax-=ns.getScriptRam("/distAttacks/dAttack.js","home");
+        }
         hostServ.push({name:hosts[i],threads:tMax});
+        
         await ns.sleep(10);
     }
     await ns.sleep(100);
