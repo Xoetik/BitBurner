@@ -19,13 +19,13 @@ export async function main(ns) {
                 var ty=await ns.codingcontract.getContractType(ccts[k],hostNames[j]);
                 var data=await ns.codingcontract.getData(ccts[k],hostNames[j]);
                 // await ns.write("ccts.txt",hostNames[j]+": "+ty+":\n"+data+"\n","a")
-                ns.alert(data);
+                ns.tprint(data);
 
             }
             servsWithFile.push(hostNames[j]);
         }
     }
-    ns.alert(servsWithFile);
+    ns.tprint(servsWithFile);
 }
 
 
