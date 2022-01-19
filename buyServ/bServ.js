@@ -11,9 +11,9 @@ export async function main(ns) {
         cost.push(ns.getPurchasedServerCost(Math.pow(2,i)));
         i++;
     }
-    for(let k=0;k<cost.length;k++){
-        await ns.tprint(Math.pow(2,k)+":"+cost[k]);
-    }
+    // for(let k=0;k<cost.length;k++){ //Debug code
+    //     await ns.tprint(Math.pow(2,k)+":"+cost[k]);
+    // }
     await ns.tprint("Money:"+ns.getServerMoneyAvailable("home"));
     while(true){
         var pServers=ns.getPurchasedServers();
