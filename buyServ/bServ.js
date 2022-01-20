@@ -48,4 +48,5 @@ export async function main(ns) {
             break;
         }
     }
+    await ns.tprint("Total Servers: " + ns.getPurchasedServers().length);
 }
