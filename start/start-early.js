@@ -4,7 +4,7 @@ export async function main(ns) {
     while(true){
         if(ns.getPlayer().hacking < 10){
             await ns.universityCourse("Rothman University", "Study Computer Science");
-            await ns.sleep(100000);
+            await ns.sleep(10000);
         }
         else{
             await ns.stopAction();

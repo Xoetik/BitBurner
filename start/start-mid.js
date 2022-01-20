@@ -22,6 +22,6 @@ export async function main(ns) {
     await ns.exec("/distAttacks/dAttack.js", "home", 1);
     await ns.sleep(10000);
 
-    await ns.tprint("Start Complete!");
+    await ns.tprint("Mid Start Complete!");
 
 }
