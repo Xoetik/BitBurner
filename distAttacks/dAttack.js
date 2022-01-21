@@ -144,7 +144,12 @@ async function wagAlgo(ns,targets,hosts){
         await ns.sleep(10);
     }
     await ns.sleep(100);
-    let collectMoney=0;
+
+    let balanceFactor = 240;
+    let difficultyMult = (100 - (ns.getServerMinSecurityLevel(targetServ[0].name)+5)) / 100;
+    let skillMult = (ns.getPlayer().hacking - (ns.getServerRequiredHackingLevel(targetServ[0].name)- 1)) / ns.getPlayer().hacking;
+    let perc = (difficultyMult * skillMult * ns.getPlayer().hacking_money_mult) / balanceFactor;
+    let collectMoney=.75/perc;
     let t =0;
     while(hostServ.length>servUsed&&targetServ.length>servsAttacking){
         if (collectMoney>0){
@@ -161,7 +166,7 @@ async function wagAlgo(ns,targets,hosts){
             if(collectMoney>0){
                 servUsed++;
             }else{
-                servsAttacking++;
+                
             }
         }else{
             await ns.tprint("WAG Host: "+hostServ[servUsed].name+" Target: "+targetServ[servsAttacking].name);
@@ -175,7 +180,8 @@ async function wagAlgo(ns,targets,hosts){
                 hostServ[servUsed]={name:hostServ[servUsed].name,ram:hostServ[servUsed].ram-targetServ[servsAttacking].ram};
                 let t=targetServ[servsAttacking].ram/ns.getScriptRam("/distAttacks/wag.js","home");
                 await ns.scp("/distAttacks/wag.js", hostServ[servUsed].name);
-                await ns.exec("/distAttacks/wag.js", hostServ[servUsed].name, t, targetServ[servsAttacking].name); 
+                await ns.exec("/distAttacks/wag.js", hostServ[servUsed].name, t, targetServ[servsAttacking].name);
+                servsAttacking++; 
                 let balanceFactor = 240;
                 let difficultyMult = (100 - (ns.getServerMinSecurityLevel(targetServ[servsAttacking].name)+5)) / 100;
                 let skillMult = (ns.getPlayer().hacking - (ns.getServerRequiredHackingLevel(targetServ[servsAttacking].name)- 1)) / ns.getPlayer().hacking;
