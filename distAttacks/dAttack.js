@@ -138,7 +138,7 @@ async function wagAlgo(ns,targets,hosts){
         let rMax =(ns.getServerMaxRam(hosts[i])-ns.getServerUsedRam(hosts[i]));
         rMax=Math.floor(rMax);
         if(hosts[i]=="home"){
-            rMax-=ns.getScriptRam("/distAttacks/dAttack.js","home");
+            rMax-=ns.getScriptRam("/distAttacks/dAttack.js","home")-ns.getScriptRam("/buyServ/bServ.js","home");
         }
         hostServ.push({name:hosts[i],ram:rMax});
         await ns.sleep(10);
