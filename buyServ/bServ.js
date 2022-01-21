@@ -35,15 +35,21 @@ export async function main(ns) {
                 }
             }  
         }
-
         var repeatFlag=false;
+        if(ns.args.length>1&&ns.args[1]== "r"){
+            repeatFlag=true;
+        }
         if(ram>1048576){
             ram=1048576;
             repeatFlag=true;
         }
+        await ns.sleep(100);
         if(pServers.length<25){
             if(ns.purchaseServer("pserv", ram)){
                 await ns.tprint("New server bought with "+ram+" GB.");
+            }else if(ns.getServerMoneyAvailable("home")<cost[0]){
+                await ns.tprint("New server failed to be bought. Ending loop.");
+                break;
             }else{
                 await ns.tprint("New server failed to be bought");
             }
