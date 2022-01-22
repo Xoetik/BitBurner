@@ -1,6 +1,7 @@
 /** @param {import("../.").NS} ns */
 
 export async function main(ns) {
+	await ns.tprint("Checking for New Servers...")
 	var curentRam = 2;
 	var percent = 0.85;
 	if(ns.args.length != 0){
@@ -25,7 +26,7 @@ export async function main(ns) {
 		}
 	}
 	else{
-		ns.tprint("Insufficient Funds for new Servers!");
+		ns.tprint("Insufficient Funds for New Servers!");
 	}
 	
 }

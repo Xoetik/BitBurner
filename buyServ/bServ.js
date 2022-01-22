@@ -35,7 +35,6 @@ export async function main(ns) {
                 }
             }  
         }
-
         var repeatFlag=false;
         if(ram>1048576){
             ram=1048576;
@@ -43,9 +42,9 @@ export async function main(ns) {
         }
         if(pServers.length<25){
             if(ns.purchaseServer("pserv", ram)){
-                await ns.tprint("New server bought with "+ram+" GB.");
+                await ns.tprint("New Server Bought with "+ram+" GB!");
             }else{
-                await ns.tprint("New server failed to be bought");
+                await ns.tprint("New server failed to be bought!");
             }
         }else{
             for (let i = 0; i < pServers.length; i++){
@@ -53,21 +52,22 @@ export async function main(ns) {
                     ns.killall(pServers[i]);
                     ns.deleteServer(pServers[i]);
                     if(ns.purchaseServer("pserv", ram)){
-                        await ns.tprint("Server updated to "+ram+" GB.");
+                        await ns.tprint("Server Updated to "+ram+" GB!");
                     }else{
-                        await ns.tprint("Server Failed to update.");
+                        await ns.tprint("Server Failed to update!");
                     }
                     break;
                 }
                 if(i==24){
                     repeatFlag=false;
-                    ns.tprint("Servers are maxed out.");
+                    ns.tprint("Servers are Maxed Out!");
                 }
             }
         }
         if(repeatFlag==false){
-            await ns.exec("/distAttacks/dAttack.js", "home");
+            //await ns.exec("/distAttacks/dAttack.js", "home");
             break;
         }
     }
+    await ns.tprint("Total Servers: " + ns.getPurchasedServers().length);
 }

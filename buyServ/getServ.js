@@ -20,6 +20,5 @@ export async function main(ns) {
 			await ns.sleep(10);
 		}
 	}
-	await ns.tprint("Server bought");
-	await ns.exec("/distAttacks/dAttack.js", "home");
+	await ns.tprint("New Server Bought! RAM: "+ ram);
 }
