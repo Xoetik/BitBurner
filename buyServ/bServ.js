@@ -2,9 +2,17 @@
 
 export async function main(ns) {
 	var percent = 0.85;
-	if(ns.args.length != 0){
+    var repeatFlag=false;
+    var dFlag=false;
+    if(ns.args.length>0 && typeof ns.args[0]==='number'){
 		percent = ns.args[0];
 	}
+    if(ns.args.length>1&&ns.args[1]== "r"){
+        repeatFlag=true;
+    }
+    if(ns.args.length>2&&ns.args[2]=="a"){
+        dFlag=true;
+    }
     let cost=[];
     let i=0;
     while(Math.pow(2,i)<=1048576){
@@ -35,15 +43,18 @@ export async function main(ns) {
                 }
             }  
         }
-
-        var repeatFlag=false;
+        
         if(ram>1048576){
             ram=1048576;
             repeatFlag=true;
         }
+        await ns.sleep(100);
         if(pServers.length<25){
             if(ns.purchaseServer("pserv", ram)){
                 await ns.tprint("New server bought with "+ram+" GB.");
+            }else if(ns.getServerMoneyAvailable("home")<cost[0]){
+                await ns.tprint("New server failed to be bought. Ending loop.");
+                break;
             }else{
                 await ns.tprint("New server failed to be bought");
             }
@@ -66,7 +77,10 @@ export async function main(ns) {
             }
         }
         if(repeatFlag==false){
-            await ns.exec("/distAttacks/dAttack.js", "home");
+            if(dFlag){
+                await ns.exec("/distAttacks/dAttack.js", "home");
+            }
+            await ns.sleep(100);
             break;
         }
     }
