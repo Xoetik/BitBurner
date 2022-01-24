@@ -7,7 +7,7 @@ export async function main(ns) {
     let jumpList = [];
 
     for(let i = 0; i< hostNames.length; i++){
-        if(ns.getPlayer().hacking > ns.getServerRequiredHackingLevel(hostNames[i])){
+        if(ns.getPlayer().hacking > ns.getServerRequiredHackingLevel(hostNames[i]) && ns.hasRootAccess(hostNames[i])){
            let temp = await recLocate(ns, hostNames[i],"home","");
 		   jumpList = temp.split(" ");
 		   await ns.tprint("Backdooring: "+ jumpList);
