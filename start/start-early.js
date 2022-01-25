@@ -11,9 +11,9 @@ export async function main(ns) {
             break;
         }
     }
-
     await ns.exec("/distAttacks/dAttack.js", "home", 1);
-    await ns.exec("/crime/doCrime.js", "home", 1, "mug");
+    await ns.exec("/distAttacks/dAttack.js", "home", 1);
+    await ns.exec("/crime/doCrime.js", "home", 1, "mug", 10000000);
 
     await ns.tprint("Early Start Done!");
 

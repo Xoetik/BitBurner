@@ -1,10 +1,13 @@
 /** @param {import(".").NS} ns */
 export async function main(ns) {
-   if(ns.getPlayer().hacking < 10){
+    if(ns.getPlayer().hacking < 10){
        await ns.exec("/start/start-early.js", "home", 1);
-   }
+    }
+    else if(!ns.fileExists("SQLInject.exe", "home")){
+        await ns.exec("/start/start-mid.js", "home", 1);
+    }
    else{
-       await ns.exec("/start/start-mid.js", "home", 1);
-   }
+    await ns.exec("/start/start-late.js", "home", 1);
+    }
 
 }

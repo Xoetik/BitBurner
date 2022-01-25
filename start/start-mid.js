@@ -18,11 +18,12 @@ export async function main(ns) {
     if(ns.getCrimeChance("homicide") >= 0.75){
         crime = "homicide";
     }
-    await ns.exec("/crime/doCrime.js", "home", 1, crime);
+    await ns.exec("/crime/doCrime.js", "home", 1, crime, 100000000);
     await ns.sleep(10000);
     await ns.exec("/distAttacks/dAttack.js", "home", 1);
     await ns.sleep(10000);
 
     await ns.tprint("Mid Start Complete!");
+    
 
 }
