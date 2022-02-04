@@ -1,39 +1,36 @@
 /** @param {import("../.").NS} ns */
 
 export async function main(ns) {
-    var serverName= "";
-	if(ns.args.length == 0){
-		serverName = "home";
-	}
-	else{
-		serverName = ns.args[0];
-	}
-	var hostNames = ns.scan(serverName);
+    await ns.exec("crackAll.js", "home", 1);
+	let hostNames = await getHosts(ns);
+	for(let i =0; i< hostNames.length; i++){
+		await ns.scp("/earlyHack/infil.js", "home", hostNames[i]);
+        await ns.exec("/earlyHack/infil.js", hostNames[i],await getRam(ns, hostNames[i]));
+    }
 
-	for(var i = 0; i<hostNames.length; i++ ){
-		await ns.sleep(100);
-		var adder=ns.scan(hostNames[i]);
-		for(var j=0;j<adder.length;j++){
-			if(!hostNames.includes(adder[j])){
-				hostNames.push(adder[j]);
-			}
-		}
-		ns.alert("Post: "+hostNames);
-
-		// ns.alert("Host: "+hostNames[i]+ "Array: "+hostNames);
-	}
-
-	for(var i = 0; i<hostNames.length; i++ ){
-		while(true){	
-			var fram = await ns.getServerMaxRam("home") - ns.getServerUsedRam("home");
-			if (fram > 4 ){
-			await ns.exec("crack.js", "home",1,hostNames[i]);
-			break;
-			}
-			else{
-				await ns.sleep(100)
-			}
-		}
-	}	
-	 
 }
+
+/** @param {import("../.").NS} ns */
+async function getHosts(ns){
+	let hosts = ns.scan("home");
+    for (let i = 0; i < hosts.length; i++) {
+		// await ns.sleep(100);
+		let adder = ns.scan(hosts[i]);
+		for (let j = 0; j < adder.length; j++) {
+			if (!hosts.includes(adder[j])) {
+				hosts.push(adder[j]);
+			}
+		}
+	}
+    return hosts;
+}
+
+/** @param {import("../.").NS} ns */
+async function getRam(ns, host){
+	
+	let ram = (Math.floor(ns.getServerMaxRam(host) - ns.getServerUsedRam(host) )/ns.getScriptRam("/earlyHack/infil.js"));
+	return ram;
+}
+	
+	 
+

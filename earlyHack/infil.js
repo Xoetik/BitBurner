@@ -1,7 +1,13 @@
 /** @param {import("../.").NS} ns */
-
+let target;
 export async function main(ns) {
-    var target = "joesguns";
+    if (ns.args.length == 0) {
+		target = "foodnstuff";
+	}
+	else {
+		target = ns.args[0];
+	}
+
     var moneyThresh = ns.getServerMaxMoney(target) * 0.75;
     var secThresh = ns.getServerMinSecurityLevel(target) + 5;
 
