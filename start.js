@@ -4,7 +4,7 @@ export async function main(ns) {
     if(ns.getPlayer().hacking < 10){
        await ns.exec("/start/start-early.js", "home", 1);
     }
-    else if(!fact.includes("BitRunners")){
+    else if(!fact.includes("BitRunners") || !ns.fileExists("SQLInject.exe", "home")){
         await ns.exec("/start/start-mid.js", "home", 1);
     }
    else{

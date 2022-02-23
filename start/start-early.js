@@ -12,9 +12,10 @@ export async function main(ns) {
         }
     }
     await ns.exec("/distAttacks/dAttack.js", "home", 1);
+    
+    await ns.sleep(10000);
     await ns.exec("/distAttacks/dAttack.js", "home", 1);
     await ns.exec("/crime/doCrime.js", "home", 1, "mug", 10000000);
-
     await ns.tprint("Early Start Done!");
 
 }
