@@ -1,4 +1,7 @@
-/** @param {import("../.").NS} ns */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-redeclare */
+/* eslint-disable @typescript-eslint/no-empty-function */
+/** @param {import("../..").NS} ns */
 
 export async function main(ns) {
     var hostNames = ns.scan("home");
@@ -35,6 +38,7 @@ export async function main(ns) {
 function largestPrimeFactor(){
 
 }
+
 function totalWaysSum(){
 
 }
@@ -64,8 +68,8 @@ function sMRight(data,ptrs){
 }
 function sMDown(data,ptrs){
     var sol=[];
-    for(var i=ptrs[0];i<data.length-ptr[2];i++){
-        sol.push(data[i][-ptr[1]]);
+    for(var i=ptrs[0];i<data.length-ptrs[2];i++){
+        sol.push(data[i][-ptrs[1]]);
     }
     ptrs[1]++;
     return [sol,ptrs];
@@ -80,8 +84,8 @@ function sMLeft(data,ptrs){
 }
 function sMUp(data,ptrs){
     var sol=[];
-    for(var i=ptrs[2];i<data.length-ptr[0];i++){
-        sol.push(data[-i][ptr[3]]);
+    for(var i=ptrs[2];i<data.length-ptrs[0];i++){
+        sol.push(data[-i][ptrs[3]]);
     }
     ptrs[3]++;
     return [sol,ptrs];

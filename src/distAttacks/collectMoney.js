@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 /** @param {import("../.").NS} ns */
 
 export async function main(ns) {

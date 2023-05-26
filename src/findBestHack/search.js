@@ -1,4 +1,4 @@
-/** @param {import("../.").NS} ns */
+/** @param {import("../..").NS} ns */
 
 export async function main(ns) {
 	var serverName = "";
@@ -23,6 +23,7 @@ export async function main(ns) {
 
 	var ports = 0;
 
+	// eslint-disable-next-line no-redeclare
 	for (var i = 0; i < hostNames.length; i++) {
 		if (hostNames[i] != "home") {
 			await ns.killall(hostNames[i]);
@@ -51,6 +52,7 @@ export async function main(ns) {
 		}
 	}
 
+	// eslint-disable-next-line no-redeclare
 	for (var i = 0; i < hostNames.length; i++) {
 		if (ns.getServerRequiredHackingLevel(hostNames[i]) < ns.getHackingLevel()) {
 			if (ns.getServerMaxMoney(hostNames[i]) > ns.getServerMaxMoney(target) && ns.getServerNumPortsRequired(hostNames[i]) <= ports) {
@@ -59,6 +61,7 @@ export async function main(ns) {
 		}
 	}
 
+	// eslint-disable-next-line no-redeclare
 	for (var i = 0; i < hostNames.length; i++) {
 		if (ns.hasRootAccess(hostNames[i])) {
 			var threads = Math.floor(ns.getServerMaxRam(hostNames[i]) / 2.3);

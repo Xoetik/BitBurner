@@ -1,3 +1,5 @@
+/* eslint-disable no-redeclare */
+/* eslint-disable no-constant-condition */
 /** @param {import("../.").NS} ns */
 
 export async function main(ns) {
@@ -35,5 +37,4 @@ export async function main(ns) {
 			}
 		}
 	}	
-	 
 }

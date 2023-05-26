@@ -1,0 +1,12 @@
+/** @param {import("../.").NS} ns */
+export async function main(ns) {
+    var pServNames = ns.getPurchasedServers();
+    while (pServNames.length > 0) {
+        var servDeleting = pServNames.pop();
+        ns.killall(servDeleting);
+        ns.deleteServer(servDeleting);
+        await ns.sleep(100);
+    }
+    await ns.tprint("Servers deleted");
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGVsU2Vydi5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9idXlTZXJ2L2RlbFNlcnYuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsb0NBQW9DO0FBRXBDLE1BQU0sQ0FBQyxLQUFLLFVBQVUsSUFBSSxDQUFDLEVBQUU7SUFDNUIsSUFBSSxVQUFVLEdBQUcsRUFBRSxDQUFDLG1CQUFtQixFQUFFLENBQUM7SUFDMUMsT0FBTyxVQUFVLENBQUMsTUFBTSxHQUFDLENBQUMsRUFBQztRQUMxQixJQUFJLFlBQVksR0FBQyxVQUFVLENBQUMsR0FBRyxFQUFFLENBQUM7UUFDbEMsRUFBRSxDQUFDLE9BQU8sQ0FBQyxZQUFZLENBQUMsQ0FBQztRQUN6QixFQUFFLENBQUMsWUFBWSxDQUFDLFlBQVksQ0FBQyxDQUFDO1FBQzlCLE1BQU0sRUFBRSxDQUFDLEtBQUssQ0FBQyxHQUFHLENBQUMsQ0FBQztLQUNwQjtJQUNELE1BQU0sRUFBRSxDQUFDLE1BQU0sQ0FBQyxpQkFBaUIsQ0FBQyxDQUFDO0FBQ3BDLENBQUMifQ==

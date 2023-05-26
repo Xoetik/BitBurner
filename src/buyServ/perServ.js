@@ -1,4 +1,5 @@
-/** @param {import("../.").NS} ns */
+/* eslint-disable no-constant-condition */
+/** @param {import("../..").NS} ns */
 
 export async function main(ns) {
 	var curentRam = 2;

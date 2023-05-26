@@ -1,4 +1,4 @@
-/** @param {import("../.").NS} ns */
+/** @param {import("../..").NS} ns */
 
 export async function main(ns) {
     let hosts=await getHosts(ns);
@@ -11,7 +11,7 @@ export async function main(ns) {
     await ns.tprint("dAttack.js complete!");
 }
 
-/** @param {import("../.").NS} ns */
+/** @param {import("../..").NS} ns */
 
 async function getHosts(ns){
 	let hosts = ns.scan("home");
@@ -27,7 +27,7 @@ async function getHosts(ns){
     hosts=filter(hosts,["home"]);
     return hosts;
 }
-/** @param {import("../.").NS} ns */
+/** @param {import("../..").NS} ns */
 
 async function filter(orig,removal){
     let fin=[];
@@ -38,7 +38,7 @@ async function filter(orig,removal){
     }
     return fin;
 }
-/** @param {import("../.").NS} ns */
+/** @param {import("../..").NS} ns */
 
 async function sortByMoneyPerSecond(ns,targets){
     let targetList=[];
@@ -75,7 +75,7 @@ async function sortByMoneyPerSecond(ns,targets){
     }
     return fin;
 }
-/** @param {import("../.").NS} ns */
+/** @param {import("../..").NS} ns */
 
 async function removeBadHosts(ns,hosts,ram){
     let fin=[];
@@ -89,7 +89,7 @@ async function removeBadHosts(ns,hosts,ram){
     }
     return fin;
 }
-/** @param {import("../.").NS} ns */
+/** @param {import("../..").NS} ns */
 
 async function open(ns,target){
     let ports = 0;
@@ -117,7 +117,7 @@ async function open(ns,target){
 		await ns.nuke(target);
 	}
 }
-/** @param {import("../.").NS} ns */
+/** @param {import("../..").NS} ns */
 
 async function wagAlgo(ns,targets,hosts){
     var servUsed=0;
@@ -165,8 +165,6 @@ async function wagAlgo(ns,targets,hosts){
             await ns.exec("/distAttacks/collectMoney.js", hostServ[servUsed].name, t, targetServ[servsAttacking].name);
             if(collectMoney>0){
                 servUsed++;
-            }else{
-                
             }
         }else{
             await ns.tprint("WAG Host: "+hostServ[servUsed].name+" Target: "+targetServ[servsAttacking].name);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /** @param {import("../.").NS} ns */
 
 export async function main(ns) {
